@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Large Textarea</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+  flex-shrink: 0;
+}
+
+#toolbar label {
+  font-size: 14px;
+  font-family: sans-serif;
+}
+
+#fontSizeRange {
+  width: 200px;
+}
+
+#fontSizeInput {
+  width: 80px;
+  font-size: 14px;
+  padding: 2px 4px;
+}
+
+textarea {
+  width: 100%;
+  flex: 1;
+  font-size: 72px;
+  line-height: 1.4;
+  padding: 16px;
+  border: none;
+  outline: none;
+  resize: none;
+}
+</style>
+</head>
+<body>
+<div id="toolbar">
+  <label for="fontSizeInput">Font size (px):</label>
+  <input id="fontSizeRange" type="range" value="72" min="8" max="200" step="1">
+  <input id="fontSizeInput" type="number" value="72" min="1">
+</div>
+<textarea autofocus placeholder="ここに入力..."></textarea>
+<script>
+const range = document.getElementById('fontSizeRange');
+const input = document.getElementById('fontSizeInput');
+const textarea = document.querySelector('textarea');
+
+function setFontSize(size) {
+  if (size > 0) {
+    textarea.style.fontSize = size + 'px';
+  }
+}
+
+range.addEventListener('input', () => {
+  input.value = range.value;
+  setFontSize(parseInt(range.value, 10));
+});
+
+input.addEventListener('input', () => {
+  range.value = input.value;
+  setFontSize(parseInt(input.value, 10));
+});
+</script>
+</body>
+</html>
